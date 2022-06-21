@@ -10,14 +10,9 @@ class LessonsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LessonsScreenCubit()..getLessons(),
+      create: (context) => LessonsScreenCubit(),
       child: const LessonsScreenBody(),
     );
-
-    //  BlocProvider<LessonsScreenCubit>(
-    //   create: (context) => LessonsScreenCubit()..getLessons(),
-    //   child: const LessonsScreenBody(),
-    // );
   }
 }
 
@@ -26,6 +21,8 @@ class LessonsScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.read<LessonsScreenCubit>().getLessons();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Уроки'),

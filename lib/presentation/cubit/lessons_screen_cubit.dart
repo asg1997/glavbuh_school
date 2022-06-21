@@ -6,9 +6,7 @@ import 'package:glavbuh_school/domain/entities/lesson.dart';
 part 'lessons_screen_state.dart';
 
 class LessonsScreenCubit extends Cubit<LessonsScreenState> {
-  LessonsScreenCubit() : super(LessonsScreenState.initial()) {
-    print('dfs');
-  }
+  LessonsScreenCubit() : super(LessonsScreenState.initial());
 
   final lessonsService = LessonsService();
 
