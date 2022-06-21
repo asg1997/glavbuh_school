@@ -8,9 +8,7 @@ part of 'lesson_response.dart';
 
 LessonResponse _$LessonResponseFromJson(Map<String, dynamic> json) =>
     LessonResponse(
-      lessons: (json['lessons'] as List<dynamic>)
-          .map((e) => Lesson.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      lessons: LessonResponse.lessonsFromJson(json['lessons'] as List),
     );
 
 Map<String, dynamic> _$LessonResponseToJson(LessonResponse instance) =>

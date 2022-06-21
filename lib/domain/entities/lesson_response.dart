@@ -5,10 +5,14 @@ part 'lesson_response.g.dart';
 
 @JsonSerializable()
 class LessonResponse {
+  @JsonKey(fromJson: lessonsFromJson)
   final List<Lesson> lessons;
   LessonResponse({
     required this.lessons,
   });
+
+  static List<Lesson> lessonsFromJson(List<dynamic> json) =>
+      json.map((e) => Lesson.fromJson(e)).toList();
 
   factory LessonResponse.fromJson(Map<String, dynamic> json) =>
       _$LessonResponseFromJson(json);

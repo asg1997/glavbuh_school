@@ -12,6 +12,7 @@ class GlavbuhSchool extends StatelessWidget {
     return MaterialApp(
       initialRoute: navigation.initialRoute,
       routes: navigation.routes,
+      onGenerateRoute: navigation.onGenerateRoute,
       themeMode: ThemeMode.light,
     );
   }
