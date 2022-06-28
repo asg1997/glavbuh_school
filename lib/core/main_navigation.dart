@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glavbuh_school/presentation/lessons_screen.dart';
+import 'package:glavbuh_school/presentation/lessons_screen/lessons_screen.dart';
 import 'package:glavbuh_school/presentation/webview_screen/webview_screen.dart';
 
 abstract class AuthRoutes {
@@ -8,14 +8,12 @@ abstract class AuthRoutes {
 }
 
 class MainNavigation {
-  final initialRoute = AuthRoutes.lessonScreen;
-
-  final routes = <String, Widget Function(BuildContext)>{
-    AuthRoutes.lessonScreen: (context) => const LessonsScreen(),
-  };
+  final initialRoute = '/';
 
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
+      case '/':
+        return MaterialPageRoute(builder: (context) => const LessonsScreen());
       case AuthRoutes.webviewScreen:
         return MaterialPageRoute(
             builder: (context) => WebviewScreen(

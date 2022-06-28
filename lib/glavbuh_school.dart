@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:glavbuh_school/consts/app_colors.dart';
 
-import 'main_navigation.dart';
+import 'core/main_navigation.dart';
 
 class GlavbuhSchool extends StatelessWidget {
   GlavbuhSchool({Key? key}) : super(key: key);
@@ -11,9 +12,10 @@ class GlavbuhSchool extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: navigation.initialRoute,
-      routes: navigation.routes,
       onGenerateRoute: navigation.onGenerateRoute,
       themeMode: ThemeMode.light,
+      theme: ThemeData(
+          appBarTheme: const AppBarTheme(backgroundColor: AppColors.mainColor)),
     );
   }
 }

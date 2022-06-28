@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glavbuh_school/domain/entities/lesson.dart';
-import 'package:glavbuh_school/presentation/cubit/lessons_screen_cubit.dart';
-
-// import 'package:glavbuh_school/presentation/cubit/lessons_screen_cubit.dart';
+import 'package:glavbuh_school/presentation/lessons_screen/cubit/lessons_screen_cubit.dart';
 
 class LessonsScreen extends StatelessWidget {
   const LessonsScreen({Key? key}) : super(key: key);
@@ -11,7 +9,7 @@ class LessonsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LessonsScreenCubit(),
+      create: (context) => LessonsScreenCubit()..getLessons(),
       child: const LessonsScreenBody(),
     );
   }
@@ -22,12 +20,9 @@ class LessonsScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<LessonsScreenCubit>().getLessons();
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Уроки'),
-        backgroundColor: const Color.fromARGB(255, 62, 69, 83),
+        title: const Text('Главбух Школа'),
       ),
       body: const LessonListView(),
     );

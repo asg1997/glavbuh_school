@@ -6,19 +6,11 @@ class WebviewScreen extends StatelessWidget {
 
   final String url;
 
-  // WebViewController? _controller;
-  // double _height = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 62, 69, 83),
-      ),
+      appBar: AppBar(title: const Text('Главбух Школа')),
       body: WebView(
-        // onWebViewCreated: (controller) {
-        //   _controller = controller;
-        //   controller.loadUrl(url);
-        // },
         initialUrl: url,
         javascriptMode: JavascriptMode.unrestricted,
       ),
