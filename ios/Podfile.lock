@@ -1,15 +1,26 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_udid (0.0.1):
+    - Flutter
+    - SAMKeychain
+  - SAMKeychain (1.5.3)
   - webview_flutter_wkwebview (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_udid (from `.symlinks/plugins/flutter_udid/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
+
+SPEC REPOS:
+  trunk:
+    - SAMKeychain
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_udid:
+    :path: ".symlinks/plugins/flutter_udid/ios"
   webview_flutter_wkwebview:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
@@ -19,4 +30,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2

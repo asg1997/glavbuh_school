@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_udid/flutter_udid.dart';
 import 'package:glavbuh_school/core/main_navigation.dart';
 import 'package:glavbuh_school/data/lessons_service.dart';
 import 'package:glavbuh_school/domain/entities/lesson.dart';
@@ -25,7 +26,12 @@ class LessonsScreenCubit extends Cubit<LessonsScreenState> {
     }
   }
 
-  void onItemTapped(BuildContext context, String url) {
-    Navigator.of(context).pushNamed(AuthRoutes.webviewScreen, arguments: url);
+  Future<void> onItemTapped(BuildContext context, String url) async {
+    final udid = await FlutterUdid.udid;
+    final urlUdid = url + '?' + udid;
+    Navigator.of(context).pushNamed(
+      AuthRoutes.webviewScreen,
+      arguments: urlUdid,
+    );
   }
 }

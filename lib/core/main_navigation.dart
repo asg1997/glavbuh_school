@@ -3,7 +3,7 @@ import 'package:glavbuh_school/presentation/lessons_screen/lessons_screen.dart';
 import 'package:glavbuh_school/presentation/webview_screen/webview_screen.dart';
 
 abstract class AuthRoutes {
-  static const lessonScreen = '/lessonScreen';
+  static const lessonScreen = '/';
   static const webviewScreen = '/webviewScreen';
 }
 
