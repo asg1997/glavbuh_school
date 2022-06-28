@@ -11,6 +11,7 @@ class GlavbuhSchool extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: navigation.initialRoute,
       onGenerateRoute: navigation.onGenerateRoute,
       themeMode: ThemeMode.light,
