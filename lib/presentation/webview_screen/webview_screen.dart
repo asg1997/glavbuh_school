@@ -5,16 +5,12 @@ class WebviewScreen extends StatelessWidget {
   const WebviewScreen({Key? key, required this.url}) : super(key: key);
 
   final String url;
-  // WebViewController? _controller;
-  // double _height = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Главбух Школа')),
       body: WebView(
-        // onWebViewCreated: (controller) {
-        //   _controller = controller;
-        //   controller.loadUrl(url);
-        // },
         initialUrl: url,
         javascriptMode: JavascriptMode.unrestricted,
       ),
