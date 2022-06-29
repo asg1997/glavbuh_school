@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:glavbuh_school/domain/entities/lesson/lesson.dart';
 import 'package:glavbuh_school/presentation/lesson_screen/lesson_screen.dart';
 import 'package:glavbuh_school/presentation/lessons_screen/lessons_screen.dart';
 import 'package:glavbuh_school/presentation/webview_screen/webview_screen.dart';
-
-import '../domain/entities/lesson.dart';
 
 abstract class AuthRoutes {
   static const lessonsScreen = '/';

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:glavbuh_school/domain/entities/lesson.dart';
+
+import 'package:glavbuh_school/domain/entities/lesson/lesson.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'lesson_response.g.dart';
 
@@ -7,7 +8,9 @@ part 'lesson_response.g.dart';
 class LessonResponse {
   @JsonKey(fromJson: lessonsFromJson)
   final List<Lesson> lessons;
+  final List<String> links;
   LessonResponse({
+    required this.links,
     required this.lessons,
   });
 

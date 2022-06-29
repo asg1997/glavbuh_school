@@ -1,14 +1,13 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:glavbuh_school/domain/entities/lesson_response.dart';
-
-import '../domain/entities/lesson.dart';
+import 'package:glavbuh_school/core/exceptions/exceptions.dart';
+import 'package:glavbuh_school/domain/entities/lesson_response/lesson_response.dart';
 
 class LessonsService {
   final String url = 'https://www.glavbukh.ru/kursy/app/api/lessons_list2.json';
 
-  Future<List<Lesson>> getLessons() async {
+  Future<LessonResponse> getLessons() async {
     // запрос отправляем
     final response = await Dio(BaseOptions(
             contentType: Headers.formUrlEncodedContentType,
@@ -17,16 +16,17 @@ class LessonsService {
     // содержимое запроса
     var data = response.data!;
 
-    data = data.replaceAll(RegExp(r',\n\t\t}'), '}');
+    data = data.replaceAll(RegExp(r',\s+}'), '}');
+
     try {
       final Map<String, dynamic> jsonString = jsonDecode(data);
 
       final lessonResponse = LessonResponse.fromJson(jsonString);
 
-      return lessonResponse.lessons;
+      return lessonResponse;
     } catch (e) {
       print(e);
-      return [];
+      throw ServerException();
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:glavbuh_school/domain/entities/lesson.dart';
+import 'package:glavbuh_school/domain/entities/lesson/lesson.dart';
+
 import 'package:glavbuh_school/presentation/lessons_screen/cubit/lessons_screen_cubit.dart';
 
 class LessonsScreen extends StatelessWidget {
@@ -43,7 +44,11 @@ class LessonsScreenBody extends StatelessWidget {
                         lessons: state.lessons,
                       ),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context
+                                .read<LessonsScreenCubit>()
+                                .onShowMoreTapped(context);
+                          },
                           child: Text(
                             'Хочу больше уроков!',
                             style: TextStyle(
