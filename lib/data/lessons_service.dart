@@ -6,7 +6,7 @@ import 'package:glavbuh_school/domain/entities/lesson_response.dart';
 import '../domain/entities/lesson.dart';
 
 class LessonsService {
-  final String url = 'https://www.glavbukh.ru/kursy/app/api/lessons_list.json';
+  final String url = 'https://www.glavbukh.ru/kursy/app/api/lessons_list2.json';
 
   Future<List<Lesson>> getLessons() async {
     // запрос отправляем
@@ -25,6 +25,7 @@ class LessonsService {
 
       return lessonResponse.lessons;
     } catch (e) {
+      print(e);
       return [];
     }
   }

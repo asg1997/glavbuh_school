@@ -21,45 +21,69 @@ class LessonsScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Главбух Школа'),
-      ),
-      body: const LessonListView(),
-    );
+        appBar: AppBar(
+          title: const Text('Главбух Школа'),
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: BlocBuilder<LessonsScreenCubit, LessonsScreenState>(
+              builder: (context, state) {
+                if (state.status == LessonsScreenStateStatus.loading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state.status == LessonsScreenStateStatus.error) {
+                  return const Center(
+                      child: Text('Ошибка сервера, попробуйте позже'));
+                }
+                return CustomScrollView(slivers: [
+                  SliverList(
+                      delegate: SliverChildListDelegate(
+                    [
+                      LessonListView(
+                        lessons: state.lessons,
+                      ),
+                      TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Хочу больше уроков!',
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontSize: 16),
+                          ))
+                    ],
+                  ))
+                ]);
+              },
+            ),
+          ),
+        ));
   }
 }
 
 class LessonListView extends StatelessWidget {
-  const LessonListView({Key? key}) : super(key: key);
-
+  const LessonListView({Key? key, required this.lessons}) : super(key: key);
+  final List<Lesson> lessons;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LessonsScreenCubit, LessonsScreenState>(
-      builder: (context, state) {
-        if (state.status == LessonsScreenStateStatus.loading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state.status == LessonsScreenStateStatus.error) {
-          return const Center(child: Text('Ошибка сервера, попробуйте позже'));
-        }
-        return ListView.separated(
-          itemCount: state.lessons.length,
-          itemBuilder: (BuildContext context, int index) {
-            return CardLesson(
-              lesson: state.lessons[index],
-              onTap: () {
-                context.read<LessonsScreenCubit>().onItemTapped(
-                      context,
-                      state.lessons[index].url,
-                    );
-              },
-            );
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: lessons.length,
+      itemBuilder: (BuildContext context, int index) {
+        return CardLesson(
+          lesson: lessons[index],
+          onTap: () {
+            context.read<LessonsScreenCubit>().onItemTapped(
+                  context,
+                  lessons[index],
+                );
           },
-          separatorBuilder: (BuildContext context, int index) {
-            return Container(
-              height: 0.5,
-              color: const Color.fromARGB(255, 62, 69, 83),
-            );
-          },
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return Container(
+          height: 0.5,
+          color: const Color.fromARGB(255, 62, 69, 83),
         );
       },
     );
