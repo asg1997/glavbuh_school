@@ -16,7 +16,8 @@ class GlavbuhSchool extends StatelessWidget {
       onGenerateRoute: navigation.onGenerateRoute,
       themeMode: ThemeMode.light,
       theme: ThemeData(
-          appBarTheme: const AppBarTheme(backgroundColor: AppColors.mainColor)),
+          appBarTheme: const AppBarTheme(
+              backgroundColor: AppColors.mainColor, centerTitle: true)),
     );
   }
 }
