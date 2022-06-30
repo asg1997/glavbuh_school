@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:glavbuh_school/core/exceptions/exceptions.dart';
@@ -31,5 +32,29 @@ class TestsService {
       }
     }
     return tests;
+  }
+
+  Future<Test> getRandomTest(String url) async {
+    final randomNum = Random().nextInt(9).toString();
+
+    final newUrl = url.replaceAll('XX', randomNum);
+    try {
+      final response = await Dio(BaseOptions(
+              contentType: Headers.formUrlEncodedContentType,
+              responseType: ResponseType.json))
+          .get<String>(newUrl);
+      var data = response.data;
+      if (data == null) throw ServerException();
+
+      data = data.replaceAll(RegExp(r',\s+]'), ']');
+
+      final Map<String, dynamic> jsonString = jsonDecode(data);
+
+      final test = Test.fromJson(jsonString);
+      return test;
+    } catch (e) {
+      print(e);
+      throw ServerException();
+    }
   }
 }

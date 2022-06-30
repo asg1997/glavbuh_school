@@ -5,26 +5,29 @@ enum LessonStateStatus { loading, loaded, error }
 
 class LessonState extends Equatable {
   final LessonStateStatus status;
-  final List<Test> tests;
-  LessonState({
+  final Test test;
+  const LessonState({
     required this.status,
-    required this.tests,
+    required this.test,
   });
 
   factory LessonState.initial() => LessonState(
         status: LessonStateStatus.loading,
-        tests: [],
+        test: Test(
+          answers: [],
+          question: '',
+        ),
       );
   @override
-  List<Object?> get props => [status, tests];
+  List<Object?> get props => [status, test];
 
   LessonState copyWith({
     LessonStateStatus? status,
-    List<Test>? tests,
+    Test? test,
   }) {
     return LessonState(
       status: status ?? this.status,
-      tests: tests ?? this.tests,
+      test: test ?? this.test,
     );
   }
 }

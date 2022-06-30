@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_udid/flutter_udid.dart';
 import 'package:glavbuh_school/core/main_navigation.dart';
 import 'package:glavbuh_school/domain/entities/lesson/lesson.dart';
-import 'package:glavbuh_school/domain/entities/test/test.dart';
 import 'package:glavbuh_school/presentation/lesson_screen/cubit/lesson_cubit.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -99,7 +98,8 @@ class TestsWidget extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10),
-        TestsListView(),
+        TestItem()
+        // TestsListView(),
       ],
     );
   }
@@ -125,7 +125,7 @@ class ShowMoreWidget extends StatelessWidget {
               .pushNamed(AuthRoutes.webviewScreen, arguments: urlUdid);
         },
         child: Text(
-          'Подробнее',
+          'Изучить курс целиком',
           style: TextStyle(decoration: TextDecoration.underline, fontSize: 16),
         ));
   }
@@ -148,70 +148,85 @@ class LessonTextWidget extends StatelessWidget {
   }
 }
 
-class TestsListView extends StatelessWidget {
-  const TestsListView({Key? key}) : super(key: key);
+// class TestsListView extends StatelessWidget {
+//   const TestsListView({Key? key}) : super(key: key);
 
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<LessonCubit, LessonState>(
+//       builder: (context, state) {
+//         return ListView.separated(
+//           physics: NeverScrollableScrollPhysics(),
+//           shrinkWrap: true,
+//           separatorBuilder: (context, index) => SizedBox(
+//             height: 20,
+//           ),
+//           itemCount: state.tests.length,
+//           itemBuilder: (BuildContext context, int index) {
+//             return TestItem(test: state.tests[index]);
+//           },
+//         );
+//       },
+//     );
+//   }
+// }
+
+class TestItem extends StatelessWidget {
+  const TestItem({Key? key}) : super(key: key);
+  // final Test test;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LessonCubit, LessonState>(
       builder: (context, state) {
-        return ListView.separated(
+        return ListView(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          separatorBuilder: (context, index) => SizedBox(
-            height: 20,
-          ),
-          itemCount: state.tests.length,
-          itemBuilder: (BuildContext context, int index) {
-            return TestItem(test: state.tests[index]);
-          },
+          children: [
+            Text(
+              state.test.question,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            ...state.test.answers
+                .map((answer) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                              padding: EdgeInsets.all(15),
+                              side: BorderSide(width: 0),
+                              alignment: AlignmentDirectional.centerStart),
+                          onPressed: () async {
+                            final udid = await FlutterUdid.udid;
+                            final urlUdid = answer.resultUrl + '?' + udid;
+
+                            Navigator.of(context).pushNamed(
+                                AuthRoutes.webviewScreen,
+                                arguments: urlUdid);
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (context) => SizedBox(
+                            //           height: 200,
+                            //           width: 300,
+                            //           child: WebView(
+                            //             initialUrl: urlUdid,
+                            //             javascriptMode:
+                            //                 JavascriptMode.unrestricted,
+                            //           ),
+                            //         ));
+                          },
+                          child: Text(
+                            answer.answer,
+                            style: TextStyle(height: 1.7),
+                          ),
+                        ),
+                        SizedBox(height: 10)
+                      ],
+                    ))
+                .toList(),
+          ],
         );
       },
-    );
-  }
-}
-
-class TestItem extends StatelessWidget {
-  const TestItem({Key? key, required this.test}) : super(key: key);
-  final Test test;
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      children: [
-        Text(
-          test.question,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 10),
-        ...test.answers
-            .map((answer) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          padding: EdgeInsets.all(15),
-                          side: BorderSide(width: 0),
-                          alignment: AlignmentDirectional.centerStart),
-                      onPressed: () async {
-                        final udid = await FlutterUdid.udid;
-                        final urlUdid = answer.resultUrl + '?' + udid;
-
-                        Navigator.of(context).pushNamed(
-                            AuthRoutes.webviewScreen,
-                            arguments: urlUdid);
-                      },
-                      child: Text(
-                        answer.answer,
-                        style: TextStyle(height: 1.7),
-                      ),
-                    ),
-                    SizedBox(height: 10)
-                  ],
-                ))
-            .toList(),
-      ],
     );
   }
 }
